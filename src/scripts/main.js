@@ -9,10 +9,10 @@ function getEmployees(list) {
 
   return Array.from(items).map(function(li) {
 
-    const name = li.dataset.name || li.textContent.trim();
+    const personname = li.dataset.name || li.textContent.trim();
 
     return {
-      name: name,
+      name: personname,
       position: li.dataset.position,
       salary: getSalary(li),
       age: Number(li.dataset.age)
