@@ -1,8 +1,19 @@
 'use strict';
 
-const dataitems = document.querySelectorAll('ul li');
-const ul = document.querySelector('ul');
+function getEmployees(list) {
+  const items = list.querySelectorAll('li');
 
+  return Array.from(items).map(function(li) {
+    const clearsalary = Number(li.dataset.salary.replace('$', '').replaceAll(',', ''));
+
+    return {
+      name: li.textContent.trim(),
+      position: li.dataset.position,
+      salary: clearsalary,
+      age: Number(li.dataset.age)
+    };
+  });
+}
 
 function compareSalary(a, b) {
   const salarya = Number(a.dataset.salary.replace('$', '').replaceAll(',', ''));
@@ -10,12 +21,18 @@ function compareSalary(a, b) {
 
   return salaryb - salarya;
 }
-function moveToEnd(li) {
-  ul.append(li);
+
+function sortlist(list) {
+  const items = list.querySelectorAll('li');
+  const sorteditems = Array.from(items).sort(compareSalary);
+
+  sorteditems.forEach(function(li) {
+    list.append(li);
+  });
 }
 
+const ul = document.querySelector('ul');
 
-const elementsArray = Array.from(dataitems);
-const sortingitems = elementsArray.sort(compareSalary);
+const likeresult = getEmployees(ul);
 
-sortingitems.forEach(moveToEnd);
+sortlist(ul);
